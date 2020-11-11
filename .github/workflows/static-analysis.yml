@@ -33,13 +33,13 @@ jobs:
           if [[ ! -f pvs-studio.lic ]];
           then
             echo "PVS Studio license is missing. No analysis will be performed."
-            echo "If you have a PVS Studio license please create a project secret named PVS_STUDIO_LICENSE with your license."
-            echo "You may use a free license. More information at https://www.viva64.com/en/b/0457/"
+            echo "If you have a PVS Studio license please create a project secret named PVS_STUDIO_LICENSE with your license (2 lines)."
+            echo "You might be able use a free license. More information at https://www.viva64.com/en/b/0457/"
             exit 0
           fi
           cd examples/example_null
           pvs-studio-analyzer trace -- make WITH_EXTRA_WARNINGS=1
-          pvs-studio-analyzer analyze -e ../../imstb_rectpack.h -e ../../imstb_textedit.h -e ../../imstb_truetype.h -l ../../pvs-studio.lic -o pvs-studio.log
+          pvs-studio-analyzer analyze --disableLicenseExpirationCheck -e ../../imstb_rectpack.h -e ../../imstb_textedit.h -e ../../imstb_truetype.h -l ../../pvs-studio.lic -o pvs-studio.log
           plog-converter -a 'GA:1,2;OP:1' -t errorfile -w pvs-studio.log
 
   Discord-CI:
