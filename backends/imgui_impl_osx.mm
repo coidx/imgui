@@ -496,10 +496,7 @@ static void ImGui_ImplOSX_UpdateGamepads()
 static void ImGui_ImplOSX_UpdateKeyModifiers()
 {
     ImGuiIO& io = ImGui::GetIO();
-    io.KeyCtrl  = (g_KeyModifiers & ImGuiKeyModFlags_Ctrl)  != 0;
-    io.KeyShift = (g_KeyModifiers & ImGuiKeyModFlags_Shift) != 0;
-    io.KeyAlt   = (g_KeyModifiers & ImGuiKeyModFlags_Alt)   != 0;
-    io.KeySuper = (g_KeyModifiers & ImGuiKeyModFlags_Super) != 0;
+    io.AddKeyModEvent(g_KeyModifiers);
 }
 
 void ImGui_ImplOSX_NewFrame(NSView* view)

@@ -547,10 +547,12 @@ static void ImGui_ImplGlfw_UpdateKeyModifiers()
 {
     ImGui_ImplGlfw_Data* bd = ImGui_ImplGlfw_GetBackendData();
     ImGuiIO& io = ImGui::GetIO();
-    io.KeyShift = ((glfwGetKey(bd->Window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || (glfwGetKey(bd->Window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS));
-    io.KeyCtrl  = ((glfwGetKey(bd->Window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) || (glfwGetKey(bd->Window, GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS));
-    io.KeyAlt   = ((glfwGetKey(bd->Window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS) || (glfwGetKey(bd->Window, GLFW_KEY_RIGHT_ALT) == GLFW_PRESS));
-    io.KeySuper = ((glfwGetKey(bd->Window, GLFW_KEY_LEFT_SUPER) == GLFW_PRESS) || (glfwGetKey(bd->Window, GLFW_KEY_RIGHT_SUPER) == GLFW_PRESS));
+    ImGuiKeyModFlags key_mods =
+        (((glfwGetKey(bd->Window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) || (glfwGetKey(bd->Window, GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS)) ? ImGuiKeyModFlags_Ctrl : 0) |
+        (((glfwGetKey(bd->Window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) || (glfwGetKey(bd->Window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS)) ? ImGuiKeyModFlags_Shift : 0) |
+        (((glfwGetKey(bd->Window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS) || (glfwGetKey(bd->Window, GLFW_KEY_RIGHT_ALT) == GLFW_PRESS)) ? ImGuiKeyModFlags_Alt : 0) |
+        (((glfwGetKey(bd->Window, GLFW_KEY_LEFT_SUPER) == GLFW_PRESS) || (glfwGetKey(bd->Window, GLFW_KEY_RIGHT_SUPER) == GLFW_PRESS)) ? ImGuiKeyModFlags_Super : 0);
+    io.AddKeyModEvent(key_mods);
 }
 
 void ImGui_ImplGlfw_NewFrame()

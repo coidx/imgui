@@ -567,10 +567,12 @@ void ImGui_ImplAllegro5_NewFrame()
     // Setup inputs
     ALLEGRO_KEYBOARD_STATE keys;
     al_get_keyboard_state(&keys);
-    io.KeyCtrl = al_key_down(&keys, ALLEGRO_KEY_LCTRL) || al_key_down(&keys, ALLEGRO_KEY_RCTRL);
-    io.KeyShift = al_key_down(&keys, ALLEGRO_KEY_LSHIFT) || al_key_down(&keys, ALLEGRO_KEY_RSHIFT);
-    io.KeyAlt = al_key_down(&keys, ALLEGRO_KEY_ALT) || al_key_down(&keys, ALLEGRO_KEY_ALTGR);
-    io.KeySuper = al_key_down(&keys, ALLEGRO_KEY_LWIN) || al_key_down(&keys, ALLEGRO_KEY_RWIN);
+    ImGuiKeyModFlags key_mods =
+        ((al_key_down(&keys, ALLEGRO_KEY_LCTRL) || al_key_down(&keys, ALLEGRO_KEY_RCTRL)) ? ImGuiKeyModFlags_Ctrl : 0) |
+        ((al_key_down(&keys, ALLEGRO_KEY_LSHIFT) || al_key_down(&keys, ALLEGRO_KEY_RSHIFT)) ? ImGuiKeyModFlags_Shift : 0) |
+        ((al_key_down(&keys, ALLEGRO_KEY_ALT) || al_key_down(&keys, ALLEGRO_KEY_ALTGR)) ? ImGuiKeyModFlags_Alt : 0) |
+        ((al_key_down(&keys, ALLEGRO_KEY_LWIN) || al_key_down(&keys, ALLEGRO_KEY_RWIN)) ? ImGuiKeyModFlags_Super : 0);
+    io.AddKeyModEvent(key_mods);
 
     ImGui_ImplAllegro5_UpdateMouseCursor();
 }

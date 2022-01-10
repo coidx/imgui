@@ -506,13 +506,15 @@ static void ImGui_ImplSDL2_UpdateGamepads()
 
 static void ImGui_ImplSDL2_UpdateKeyModifiers()
 {
-    SDL_Keymod keymod = SDL_GetModState();
-
     ImGuiIO& io = ImGui::GetIO();
-    io.KeyShift = (keymod & KMOD_SHIFT) != 0;
-    io.KeyCtrl  = (keymod & KMOD_CTRL) != 0;
-    io.KeyAlt   = (keymod & KMOD_ALT) != 0;
-    io.KeySuper = (keymod & KMOD_GUI) != 0;
+    SDL_Keymod sdl_key_mods = SDL_GetModState();
+    ImGuiKeyModFlags key_mods =
+        ((sdl_key_mods & KMOD_CTRL) ? ImGuiKeyModFlags_Ctrl : 0) |
+        ((sdl_key_mods & KMOD_SHIFT) ? ImGuiKeyModFlags_Shift : 0) |
+        ((sdl_key_mods & KMOD_ALT) ? ImGuiKeyModFlags_Alt : 0) |
+        ((sdl_key_mods & KMOD_GUI) ? ImGuiKeyModFlags_Super : 0);
+    io.AddKeyModEvent(key_mods);
+
 }
 
 void ImGui_ImplSDL2_NewFrame()

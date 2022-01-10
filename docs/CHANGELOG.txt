@@ -38,7 +38,8 @@ HOW TO UPDATE?
 Breaking Changes:
 
 - Reworked IO keyboard input system. (#2625, #3724) [@thedmd]
-  - Added io.AddKeyEvent() function obsoleting writing directly to io.KeyMap[], io.KeysDown[] arrays.
+  - Added io.AddKeyEvent() function, obsoleting writing directly to io.KeyMap[], io.KeysDown[] arrays.
+  - Added io.AddKeyModEvent() functio,  obsoleting writing directly to io.KeyCtrl, io.KeyShift etc.
   - Added full range of key enums in ImGuiKey (e.g. ImGuiKey_F1).
   - Added GetKeyName() helper function.
   - Obsoleted GetKeyIndex(): it is now unnecessary and will now return the same value.

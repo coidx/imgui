@@ -278,11 +278,7 @@ void ImGui_ImplAndroid_NewFrame()
         io.AddKeyEvent(&key_queue.second.front());
         key_queue.second.pop();
     }
-
-    io.KeyCtrl  = ((g_KeyModFlags & ImGuiKeyModFlags_Ctrl)  != 0);
-    io.KeyShift = ((g_KeyModFlags & ImGuiKeyModFlags_Shift) != 0);
-    io.KeyAlt   = ((g_KeyModFlags & ImGuiKeyModFlags_Alt)   != 0);
-    io.KeySuper = ((g_KeyModFlags & ImGuiKeyModFlags_Super) != 0);
+    io.AddKeyModEvent(g_KeyModFlags);
 
     // Setup display size (every frame to accommodate for window resizing)
     int32_t window_width = ANativeWindow_getWidth(g_Window);
